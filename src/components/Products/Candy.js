@@ -8,6 +8,8 @@ export const CandyProducts =()=>{
    
     const [employee, setEmployee]= useState([])
     const [filteredCandy, setFilteredCandy] = useState([])
+    const [price, setPrice]= useState(false)
+    const [types, setTypes]=useState([])
 
 
     useEffect(
@@ -35,6 +37,17 @@ export const CandyProducts =()=>{
         },
         []
     )
+    useEffect(
+        ()=>{
+            fetch(`${api}/productTypes`)
+            .then(res =>res.json())
+            .then(
+                (data)=>{
+                    setTypes(data)
+                }
+            )
+        }
+    )
 
     useEffect(
         ()=>{
@@ -53,26 +66,44 @@ export const CandyProducts =()=>{
         },
         [employee]
     )
+
+    useEffect(
+       ()=>{
+        if(price === true){
+        const topShelfCandy = candies.filter(candy=> candy.price > 2) //if the candy price is above 2 then push to filteredCandy
+        setFilteredCandy(topShelfCandy)
+        }
+        else{
+            setFilteredCandy(candies)
+        }  
+       },
+
+       [price] //looks at price array for load
+    )
+
+
     
 
     return <>
-        {/* {
-            employee.length ===0
-
-            ?<> <header>customers only</header></>
-            :<>""
-            </> 
-
-
-        } */}
+        {
+            employee.find(worker => parseInt(worker.userId) == parseInt(currentUser.id))
+            ?<>
+                <button onClick={ ()=>{setPrice(true)}}>Top Priced</button>
+                <button onClick={ ()=>{setPrice(false)}}>all Prices</button>
+            
+            </>
+            :<>
+            </>
+        }
         
         <h2>List of all products available</h2>
+        
             <section>
                 <ul>{
                 filteredCandy.map(
                     (candy)=>{
-                        
-                        return <li >{candy.productName} ${candy.price}</li>
+                         let candyType = types.find(type =>  parseInt(type.id) === parseInt(candy.productTypeId))
+                         return <><li>{candy.productName} ${candy.price}</li><ul><li>{candyType?.productType}</li></ul></>
                     }
                 )
             }
