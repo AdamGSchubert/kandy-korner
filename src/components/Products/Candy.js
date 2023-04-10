@@ -46,7 +46,8 @@ export const CandyProducts =()=>{
                     setTypes(data)
                 }
             )
-        }
+        },
+        []
     )
 
     useEffect(
