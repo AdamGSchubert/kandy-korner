@@ -1,7 +1,7 @@
 import {useEffect,useState} from "react"
 
 const api = "http://localhost:8088"
-export const CandyProducts =()=>{
+export const CandyProducts =({candySearchState})=>{
     const [candies, setCandies] = useState([])
     const localUser =localStorage.getItem("kandy_user")
     const currentUser = JSON.parse(localUser)
@@ -58,7 +58,7 @@ export const CandyProducts =()=>{
                 //console.log("an employee")
             }
             else {
-                const myCandy =candies.filter(candy => candy.productName === "Panda Cookies")
+                const myCandy =candies.filter(candy => candy.productName != "")
                 setFilteredCandy(myCandy)
                 //console.log("not employee")
             }
@@ -82,6 +82,16 @@ export const CandyProducts =()=>{
        [price] //looks at price array for load
     )
 
+    useEffect(
+        ()=>{
+            const searchCandy = candies.filter(candy => {return candy.productName.toLowerCase().startsWith(candySearchState.toLowerCase())})
+                
+            setFilteredCandy(searchCandy)
+
+        },
+        [candySearchState]
+    )
+
 
     
 
@@ -103,9 +113,16 @@ export const CandyProducts =()=>{
                 <ul>{
                 filteredCandy.map(
                     (candy)=>{
-                         let candyType = types.find(type =>  parseInt(type.id) === parseInt(candy.productTypeId))
+                         if( employee.find(worker => parseInt(worker.userId) === parseInt(currentUser.id))){
+                          let candyType = types.find(type =>  parseInt(type.id) === parseInt(candy.productTypeId))
                          return <><li>{candy.productName} ${candy.price}</li><ul><li>{candyType?.productType}</li></ul></>
                     }
+                    else{
+                        
+                            return <><li>{candy.productName} ${candy.price}</li></>
+                    }
+                        }
+                         
                 )
             }
             </ul>
