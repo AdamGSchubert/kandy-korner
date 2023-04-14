@@ -1,0 +1,9 @@
+.customers{
+    display: flex;
+
+}
+.customer{
+    background-color: rgb(94, 235, 141);
+    padding: 1rem;
+    margin: 2rem;
+}

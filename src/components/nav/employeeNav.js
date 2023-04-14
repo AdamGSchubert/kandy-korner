@@ -23,6 +23,9 @@ export const EmployeeNavBar = () => {
                 <Link className="navbar__link" to="/employeeList">Employee List</Link>
             </li>
             <li className="navbar__item active">
+                <Link className="navbar__link" to="/customerList">Customer List</Link>
+            </li>
+            <li className="navbar__item active">
             <Link className="navbar__link" to="/location">locations</Link>
             </li> 
             <li className="navbar__item navbar__logout">

@@ -8,6 +8,9 @@ import {useEffect, useState} from "react"
 import { NewUserForm } from "../users/newUsers"
 import { NewHireForm } from "../Employees/hireForm"
 import { EmployeeList } from "../Employees/employeeList"
+import { CustomerList } from "../customers/customerList"
+import { Customer } from "../customers/customer"
+import { CustomerDetails } from "../customers/customerDetails"
 const localUser =localStorage.getItem("kandy_user")
 const currentUser = JSON.parse(localUser)
 const api = "http://localhost:8088"
@@ -36,6 +39,9 @@ export const EmployeeViews = () => {
                 <Route path="/registerUser" element={<NewUserForm/>}/>
                 <Route path="newHires" element={<NewHireForm/>}/>
                 <Route path="employeeList" element={<EmployeeList/>}/>
+                <Route path="customerList" element={<CustomerList />}/>
+                <Route path="customers" element={<Customer/>}/>
+                <Route path="customers/:customerId" element={<CustomerDetails/>} />
 
             </>
             
