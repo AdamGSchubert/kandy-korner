@@ -5,6 +5,9 @@ import { CandyContainer } from "../Products/candyContainer"
 import { CandySearch } from "../Products/findCandy"
 import { BuildCandy } from "../Products/NewCandy"
 import {useEffect, useState} from "react"
+import { NewUserForm } from "../users/newUsers"
+import { NewHireForm } from "../Employees/hireForm"
+import { EmployeeList } from "../Employees/employeeList"
 const localUser =localStorage.getItem("kandy_user")
 const currentUser = JSON.parse(localUser)
 const api = "http://localhost:8088"
@@ -30,7 +33,10 @@ export const EmployeeViews = () => {
 				<Route path="candies" element={<CandyProducts/>}/>
 				<Route path="candyForm" element={<BuildCandy/>}/>
                 <Route path="candySearch" element={<CandyContainer/>}/>
-            
+                <Route path="/registerUser" element={<NewUserForm/>}/>
+                <Route path="newHires" element={<NewHireForm/>}/>
+                <Route path="employeeList" element={<EmployeeList/>}/>
+
             </>
             
             
